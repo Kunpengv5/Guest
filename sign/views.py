@@ -11,9 +11,15 @@ def login_action(request):
         username = request.POST.get('username','')
         passwd = request.POST.get('password','')
         if username == 'admin' and passwd == 'admin123':
-            return HttpResponseRedirect('/event_manage/')
+            response = HttpResponseRedirect('/event_manage/')
+           # response.set_cookie('user',username,3600)  #添加浏览器cookie
+            request.session['user'] = username  #将session信息记录到浏览器
+            return response
+            # return HttpResponseRedirect('/event_manage/')
         else:
             return render(request,'index.html',{'error':'username or password error!'})
 
 def event_manage(request):
-    return render(request,"event_manage.html")
+   # username = request.COOKIES.get('user','') #读取浏览器cookie
+    username = request.session.get('user','') #读取浏览器的session
+    return render(request,"event_manage.html",{"user":username})
