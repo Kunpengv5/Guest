@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+#配置url到视图的映射表
 ROOT_URLCONF = 'guest.urls'
 
 TEMPLATES = [
